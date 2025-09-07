@@ -117,10 +117,11 @@ Submitted on: ${new Date().toLocaleString()}
       { status: 200 }
     );
 
-  } catch (error: any) {
-    console.error('❌ Error sending email:', error.message || error);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to send request';
+    console.error('❌ Error sending email:', errorMessage);
     return NextResponse.json(
-      { error: error.message || 'Failed to send request' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

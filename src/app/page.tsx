@@ -189,25 +189,13 @@ function LayerCarousel() {
           className={`${glowBorder} p-6`}
         >
           <div className="aspect-video w-full rounded-xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center overflow-hidden">
-            <img 
-              src={`/architecture-${cards[active].key}.png`}
-              alt={`${cards[active].title} Architecture`}
-              className="w-full h-full object-cover rounded-xl"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                if (nextElement) {
-                  nextElement.style.display = 'flex';
-                }
-              }}
-            />
-            {/* Fallback placeholder */}
-            <div className="hidden flex-col items-center justify-center text-center p-8">
+            {/* Fallback placeholder - always show since images don't exist */}
+            <div className="flex flex-col items-center justify-center text-center p-8">
               <div className="w-16 h-16 mb-4 rounded-xl bg-gradient-to-br from-cyan-400/20 to-violet-400/20 flex items-center justify-center">
                 {React.createElement(cards[active].icon, { className: "h-8 w-8 text-cyan-300" })}
               </div>
               <p className="text-white/60 text-sm mb-2">{cards[active].title}</p>
-              <p className="text-white/40 text-xs">Add your architecture image here</p>
+              <p className="text-white/40 text-xs">Architecture diagram placeholder</p>
             </div>
           </div>
         </motion.div>
@@ -648,26 +636,13 @@ nexus template rag`}</pre>
             >
               {/* Image Container */}
               <div className="aspect-video w-full rounded-xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center overflow-hidden">
-                <img 
-                  src="/finops-dashboard.png" 
-                  alt="FinOps Dashboard" 
-                  className="w-full h-full object-cover rounded-xl"
-                  onError={(e) => {
-                    // Fallback content when image is not found
-                    e.currentTarget.style.display = 'none';
-                    const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                    if (nextElement) {
-                      nextElement.style.display = 'flex';
-                    }
-                  }}
-                />
-                {/* Fallback placeholder */}
-                <div className="hidden flex-col items-center justify-center text-center p-8">
+                {/* Fallback placeholder - always show since image doesn't exist */}
+                <div className="flex flex-col items-center justify-center text-center p-8">
                   <div className="w-16 h-16 mb-4 rounded-xl bg-gradient-to-br from-cyan-400/20 to-violet-400/20 flex items-center justify-center">
                     <LineChart className="h-8 w-8 text-cyan-300" />
                   </div>
                   <p className="text-white/60 text-sm mb-2">FinOps Dashboard</p>
-                  <p className="text-white/40 text-xs">Add your dashboard image here</p>
+                  <p className="text-white/40 text-xs">Dashboard preview placeholder</p>
                 </div>
               </div>
             </motion.div>

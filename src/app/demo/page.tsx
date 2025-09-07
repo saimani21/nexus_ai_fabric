@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, Mail, Phone, Building } from 'lucide-react';
+import { ArrowLeft, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -198,7 +198,7 @@ export default function DemoPage() {
               {submitStatus === 'success' && (
                 <div className="mt-4 p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
                   <p className="text-green-300 text-sm text-center">
-                    ✅ Demo request sent successfully! We'll get back to you soon.
+                    ✅ Demo request sent successfully! We&apos;ll get back to you soon.
                   </p>
                 </div>
               )}
