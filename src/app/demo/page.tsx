@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, Mail, Phone, Building, User } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, Building } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DemoPage() {
@@ -22,10 +22,10 @@ export default function DemoPage() {
       <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold tracking-tight text-white mb-6">
-            Let's build together
+            Let&apos;s build together
           </h1>
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            Tell us what you have in mind and we'll schedule a personalized demo to show you how to bring it to life with Nexus AI
+            Tell us what you have in mind and we&apos;ll schedule a personalized demo to show you how to bring it to life with Nexus AI
           </p>
         </div>
 

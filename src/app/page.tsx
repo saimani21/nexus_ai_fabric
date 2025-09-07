@@ -15,7 +15,6 @@ import {
   Rocket,
   Boxes,
   BookOpen,
-  Cloud,
   ArrowRight,
   Sparkles,
   Layers as LayersIcon,
@@ -125,7 +124,7 @@ function LayerCarousel() {
         clearInterval(timer);
       }
     };
-  }, [isHovered, cards.length]);
+  }, [isHovered, cards.length, timer]);
 
   return (
     <div className="mt-10">
@@ -521,17 +520,17 @@ export default function Page() {
             <h3 className="text-lg font-medium mb-4">MCP in Action</h3>
             <div className="space-y-4 text-sm">
               <div className="rounded-lg bg-white/5 p-3">
-                <span className="text-cyan-300 font-semibold">Query:</span> "Label risk for transaction #12345"
+                  <span className="text-cyan-300 font-semibold">Query:</span> &quot;Label risk for transaction #12345&quot;
                 <br />
                 <span className="text-xs text-white/60">→ Routes to Knowledge Graph tool</span>
               </div>
               <div className="rounded-lg bg-white/5 p-3">
-                <span className="text-cyan-300 font-semibold">Query:</span> "Hi, how are you?"
+                <span className="text-cyan-300 font-semibold">Query:</span> &quot;Hi, how are you?&quot;
                 <br />
                 <span className="text-xs text-white/60">→ Conversational; avoids unnecessary tool calls</span>
               </div>
               <div className="rounded-lg bg-white/5 p-3">
-                <span className="text-cyan-300 font-semibold">Query:</span> "Generate fraud detection report for Q4"
+                <span className="text-cyan-300 font-semibold">Query:</span> &quot;Generate fraud detection report for Q4&quot;
                 <br />
                 <span className="text-xs text-white/60">→ Orchestrates data + analytics + report generation</span>
               </div>
@@ -782,7 +781,7 @@ nexus template rag`}</pre>
                 <div className="bg-cyan-400/10 border border-cyan-400/20 rounded-lg p-3">
                   <p className="text-cyan-300 text-xs font-medium mb-1">Query:</p>
                   <code className="text-white text-sm">
-                    "Analyze transaction #TX-789123 for fraud indicators"
+                    &quot;Analyze transaction #TX-789123 for fraud indicators&quot;
                   </code>
                 </div>
 
