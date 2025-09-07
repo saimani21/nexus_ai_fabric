@@ -106,7 +106,7 @@ function LayerCarousel() {
   ];
 
   // Auto-rotation effect
-  React.useEffect(() => {
+  React.  useEffect(() => {
     if (!isHovered) {
       const interval = setInterval(() => {
         setActive((prev) => (prev + 1) % cards.length);
@@ -124,7 +124,7 @@ function LayerCarousel() {
         clearInterval(timer);
       }
     };
-  }, [isHovered, cards.length, timer]);
+  }, [isHovered, cards.length]);
 
   return (
     <div className="mt-10">

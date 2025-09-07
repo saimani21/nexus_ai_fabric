@@ -2,8 +2,65 @@
 
 import { ArrowLeft, Mail, Phone, Building } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function DemoPage() {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phone: '',
+    email: '',
+    company: '',
+    project: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/send-demo-request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          to: 'quantumcodeworks7@gmail.com',
+          subject: 'New Demo Request from Nexus AI Website'
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          fullName: '',
+          phone: '',
+          email: '',
+          company: '',
+          project: ''
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0b1020] via-[#0f1419] to-[#0b1020]">
       {/* Header */}
@@ -31,7 +88,7 @@ export default function DemoPage() {
 
         {/* Demo Form */}
         <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8">
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name */}
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-white mb-2">
@@ -41,6 +98,8 @@ export default function DemoPage() {
                 type="text"
                 id="fullName"
                 name="fullName"
+                value={formData.fullName}
+                onChange={handleInputChange}
                 required
                 placeholder="Type your answer here..."
                 className="w-full px-4 py-3 bg-white/5 border-b border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 transition-colors"
@@ -61,6 +120,8 @@ export default function DemoPage() {
                   type="tel"
                   id="phone"
                   name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
                   required
                   placeholder="(201) 555-0123"
                   className="flex-1 px-4 py-3 bg-white/5 border-b border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 transition-colors"
@@ -77,6 +138,8 @@ export default function DemoPage() {
                 type="email"
                 id="email"
                 name="email"
+                value={formData.email}
+                onChange={handleInputChange}
                 required
                 placeholder="name@example.com"
                 className="w-full px-4 py-3 bg-white/5 border-b border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 transition-colors"
@@ -92,6 +155,8 @@ export default function DemoPage() {
                 type="text"
                 id="company"
                 name="company"
+                value={formData.company}
+                onChange={handleInputChange}
                 required
                 placeholder="Type your answer here..."
                 className="w-full px-4 py-3 bg-white/5 border-b border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 transition-colors"
@@ -106,6 +171,8 @@ export default function DemoPage() {
               <textarea
                 id="project"
                 name="project"
+                value={formData.project}
+                onChange={handleInputChange}
                 required
                 rows={4}
                 placeholder="Describe your project, goals, or what you'd like to see in the demo..."
@@ -117,44 +184,36 @@ export default function DemoPage() {
             <div className="pt-6">
               <button
                 type="submit"
-                className="w-full bg-cyan-400/90 hover:bg-cyan-300 text-[#0b1020] font-semibold py-4 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className="w-full bg-cyan-400/90 hover:bg-cyan-300 disabled:bg-cyan-400/50 disabled:cursor-not-allowed text-[#0b1020] font-semibold py-4 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2"
               >
                 <Mail className="h-5 w-5" />
-                Schedule Demo
+                {isSubmitting ? 'Sending...' : 'Schedule Demo'}
               </button>
               <p className="text-center text-white/40 text-sm mt-3">
                 press Enter ↵
               </p>
+              
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <div className="mt-4 p-4 bg-green-500/20 border border-green-500/30 rounded-lg">
+                  <p className="text-green-300 text-sm text-center">
+                    ✅ Demo request sent successfully! We'll get back to you soon.
+                  </p>
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="mt-4 p-4 bg-red-500/20 border border-red-500/30 rounded-lg">
+                  <p className="text-red-300 text-sm text-center">
+                    ❌ Failed to send demo request. Please try again or contact us directly.
+                  </p>
+                </div>
+              )}
             </div>
           </form>
         </div>
 
-        {/* Contact Info */}
-        <div className="mt-12 text-center">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-cyan-400/20 rounded-full flex items-center justify-center mb-3">
-                <Mail className="h-6 w-6 text-cyan-400" />
-              </div>
-              <h3 className="text-white font-medium mb-1">Email Us</h3>
-              <p className="text-white/60 text-sm">demo@nexus-ai.com</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-cyan-400/20 rounded-full flex items-center justify-center mb-3">
-                <Phone className="h-6 w-6 text-cyan-400" />
-              </div>
-              <h3 className="text-white font-medium mb-1">Call Us</h3>
-              <p className="text-white/60 text-sm">+1 (555) 123-4567</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-cyan-400/20 rounded-full flex items-center justify-center mb-3">
-                <Building className="h-6 w-6 text-cyan-400" />
-              </div>
-              <h3 className="text-white font-medium mb-1">Visit Us</h3>
-              <p className="text-white/60 text-sm">San Francisco, CA</p>
-            </div>
-          </div>
-        </div>
       </main>
     </div>
   );
