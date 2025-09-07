@@ -1,0 +1,3 @@
+[33m1291b1f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Fix linting errors and runtime issues
+[33m91a33b1[m Add email functionality to demo form
+[33m440b30f[m Fix ESLint errors: escape quotes and remove unused imports
